@@ -119,3 +119,98 @@ Object.keys(), Object.getOwnPropertyNames(), Object.getOwnPropertySymbols(), Ref
 2. After all properties that look like array indexes are listed, all remaining properties with string names are listed (including negative and floating-point numbers). These properties are listed in the order in which they were added to the object. For properties defined in a object literal, this order is the same order they appear in the literal.
 3. Finally, the properties whose names are Symbol objects are listed in the order in which they were added to the object.
 
+## Methods
+
+- Know methods inherited from Object.prototype: hasOwnProperty(), propertyIsEnumerable(), toString(), toLocaleString(), valueOf(), toJSON(). The Object.prototype does not actually define a toJSON() method, but the JSON.stringify() looks for a toJSON() method on any object it is asked to serialize. 
+
+To define a method for an object
+```
+let square = {
+ area: function() { return this.side * this.side; },
+ side: 10
+};
+
+// also using a shortcut
+let square = {
+ area() { return this.side * this.side; },
+ side: 10
+};
+```
+
+Also, note that when you write a method using the shorthand syntax, the property name can take any of the forms that are legal in an object literal: you can also use string literals and computed property names, which can include Symbol property names.
+
+```
+let weird = {
+ "method with spaces"(x) { return 1; }
+ [str](x) { return x; }
+};
+
+weird["method with spaces"](1);
+```
+
+## Classes
+
+There are two ways to define classes in JS. Constructor invocations using new automatically create the new object, so the constructor itself only needs to initialize the state of that new object. The critical feature of constructor invocations is that the prototype property of the constructor is used as the prototype of the new object. While almost all objects have a prototype, only a few objects have a prototype property. It is function objects that have a prototype property. This means that all objects created with the same constructor function inherit from the same object and are therefore members of the same class. 
+
+```
+function Range(from, to) {
+ this.from = from;
+ this.to = to;
+}
+
+Range.prototype = {
+ includes: function(x) { return this.from <= x && x <= this.to; },
+};
+
+let r = new Range(1, 3);
+r.includes(2);
+```
+
+Using new.target and emulating the feature
+```
+function C() {
+ if (!new.target) return new C();
+}
+```
+
+Know the difference between factory functions and constructor functions. Basically, constructor functions are those invoked with the new keyword. The new object is automatically created and is accessible as the this value. Constructor invocation automatically creates a new object, invokes the constructor as a method of that object, and returns the new object. 
+
+Know about the new.target expression. If the value of that expression is defined, then you know that the function was invoked as a constructor, with the new keyword. If new.target is undefined, then the containing function was invoked as a function, without the new keyword. 
+
+Know to use the instanceof operator: returns true if the left hand side object is of an instance of the right hand side class.
+
+To test the prototype chain of an object for a specific prototype and do not want to use the constructor function as an intermediary, you can use the isPrototypeOf() method, parent.isPrototypeOf(obj)
+
+
+### Constructors and prototypes
+
+Every regular JavaScript function automatically has a prototype property. The value of this property is an object that has a single, non-enumerable constructor property. The value of the constructor property is the function object:
+
+```
+let F = function() {}
+let p = F.prototype;
+let c = p.constructor;
+
+console.log(c === F);
+```
+
+This means that objects typically inherit a constructor property that refers to their constructor. Since constructors serve as the public identity of a class, this constructor property gives the class of an object.
+
+```
+let o = new F();
+o.constructor === F; // true
+```
+
+A need to explicitly set the constructor:
+```
+Range.prototype = {
+ constructor: Range
+}
+```
+
+
+
+
+
+
+
