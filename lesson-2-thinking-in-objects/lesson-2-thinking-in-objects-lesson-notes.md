@@ -1,0 +1,33 @@
+# Lesson 2. Thinking in Objects
+
+ - Know the object definition/description from the perspective of human cognition: a tangible and/or visible thing, something that may be comprehended intellectually, and something toward which thought or action is directed.
+ - Define object: An object is an entity that has state, behavior, and identity. The structure and behavior of similar objects are defined in their common class. The terms instance and object are interchangeable.
+ - Define state: The state of an object encompasses all of the (usually static) properties of the object plus the current (usually dynamic) values of each of these properties.
+ - Define behavior: Behavior is how an object acts and reacts, in terms of its state changes and message passing. In combination, also note that the state of an object represents the cumulative results of its behavior.
+ - An operation denotes a service that a class offers to its clients. The three most common kinds of operations are the following:
+ - `Modifier: an operation that alters the state of an object.`
+ - `Selector: an operation that accesses the state of an object but does not alter the state.`
+ - `Iterator: an operation that permits all parts of an object to be accessed in some well-defined order.`
+ - Differentiate between constructor and destructor as the infrastructure necessary to create and destroy instances of a class.
+ - `Constructor: an operation that creates an object and/or initializes its state.`
+ - `Destructor: an operation that frees the state of an object and/or destroys the object itself.`
+ - Define identity: Identity is the property of an object which distinguishes it from all other objects.
+ - Be aware of at least two kinds of object relationships: links and aggregation.
+ - Define link: a physical or conceptual connection between objects.
+ - Know the roles an object may play in a link:
+ - `Controller: This object can operate on other objects but is not operated on by other objects. In some contexts, the terms active object and controller are interchangeable.`
+ - `Server: This object doesn’t operate on other objects; it is only operated on by other objects.`
+ - `Proxy: This object can both operate on other objects and be operated on by other objects. A proxy is usually created to represent a real-world object in the domain of the application.`
+ - Know that when one active object has a link to a passive one, we must choose one of three approaches to synchronization:
+ - `Sequential: The semantics of the passive object are guaranteed only in the presence of a single active object at a time.`
+ - `Guarded: The semantics of the passive object is guaranteed in the presence of multiple threads of control, but the active clients must collaborate to achieve mutual exclusion.`
+ - `Concurrent: The semantics of the passive object is guaranteed in the presence of multiple threads of control, and the supplier guarantees mutual exclusion.`
+ - Whereas links denote peer-to-peer or client/supplier relationships, aggregation denotes a whole/part hierarchy, with the ability to navigate from the whole (also called the aggregate) to its parts. 
+ - Clearly understand what class is: A class is a set of objects that share a common structure, common behavior, and common semantics. A class is an object’s blueprint. A class is an abstraction mechanism.
+ - The implementation of a class primarily consists of the implementation of all of the operations defined in the interface of the class. We can divide the interface of a class into four parts:
+ - `Public: A declaration that is accessible to all clients.`
+ - `Protected: A declaration that is accessible only to the class itself and its subclasses.`
+ - `Private: A declaration that is accessible only to the class itself.`
+ - `Package: A declaration that is accessible only by classes in the same package.`
+ - Languages, such as C++, have also a “friendship” mechanism breaking a class’ encapsulation and must be chosen carefully. Java does not have a friendship but has a similar type of visibility called package access, where all classes in the same package can access each other.
+ - Have a vocabulary related to classes and their contents: Smalltalk uses the term instance variable, Java uses the term field, and C++ uses the term data member. 
