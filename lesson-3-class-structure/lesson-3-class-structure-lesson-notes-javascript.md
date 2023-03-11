@@ -208,7 +208,30 @@ Range.prototype = {
 }
 ```
 
+Know the ES6 syntax to create classes, constructor, and methods. Note that omitting the constructor will make the engine implicitly create an empty one.
+Know the important things for the class syntax: all code within the body of a class declaration is implicitly in strict mode, even if no “use strict” directive appears. This means, for example, that you can’t use octal integer literals or the with statement within class bodies and that you are more likely to get syntax errors if you forget to declare a variable before using it. Class declarations are not hoisted: you cannot instantiate a class before you declare it.
 
+Static methods are defined as properties of the constructor function rather than properties of the prototype object.
+Remember that all of the shorthand method definition syntaxes allowed in object literals are also allowed in class bodies.
+Consider using the field declarations inside the class body. Also, note that the static keyword can be used with fields to make them class variables.
+
+```
+class Test {
+ static #x = 12;
+ nonstatic = "hello"
+ #privVar = 14;
+ 
+ foo() {
+  // accessing 
+  this.#privVar = 1;
+  this.nonstatic = 14;
+ }
+ 
+ static foo() {
+  Test.#x = 2;
+ }
+}
+```
 
 
 
