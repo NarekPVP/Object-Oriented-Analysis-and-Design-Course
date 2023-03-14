@@ -108,8 +108,8 @@ delete book.author;
 let obj = { a: 11 };
 "a" in obj; // true
 "b" in obj; // false
-obj.hasOwnProperty("x"); // true
-obj.propertIsEnumerable("x"); // true
+obj.hasOwnProperty("a"); // true
+obj.propertIsEnumerable("a"); // true
 ```
 
 ## Enumeration order
