@@ -11,7 +11,7 @@
 
 Know how to use the `Object.getOwnPropertyDescriptor()` function.
 
-```
+```js
 // Returns {value: 1, writable:true, enumerable:true, configurable:true}
 Object.getOwnPropertyDescriptor({x: 1}, "x");
 ```
@@ -22,7 +22,7 @@ Object.getOwnPropertyDescriptor({}, "x"); // undefined; no such property
 
 Know about Object.defineProperty() function. Takes three arguments: the object to be modified, the name of the property to be created or altered, and the property descriptor object.
 
-```
+```js
 let obj = {};
 Object.defineProperty(obj, "test", {
  value: 42,
@@ -35,7 +35,7 @@ obj.test; // 42
 Object.keys(obj); // []
 ```
 
-```
+```js
 Object.defineProperty(obj, "test", { writable: false });
 
 obj.test = 2; // fails silently or throws TypeError in strict mode
@@ -43,7 +43,7 @@ obj.test = 2; // fails silently or throws TypeError in strict mode
 
 When we change the property from a data property to an accessor property, it loses the value attribute.
 
-```
+```js
 Object.defineProperty(obj, "test", { get: function() { return 0; } });
 obj.test; // 0
 ```
@@ -51,7 +51,7 @@ obj.test; // 0
 We can define multiple properties using the Object.defineProperties() function.
 An example from the Flanagan's book:
 
-```
+```js
 let p = Object.defineProperties({}, {
  x: { value: 1, writable: true, enumerable: true, configurable: true }
 });
@@ -61,7 +61,7 @@ let p = Object.defineProperties({}, {
 
 Object literal
 
-```
+```js
 let sample = {};
 let another = { a: 11, b: 22 };
 ```
@@ -70,13 +70,13 @@ The `new` operator creates and initializes a new object. The keyword must be fol
 
 `Object.create()` creates a new object, using its first argument as the prototype of that object.
 
-```
+```js
 let obj = Object.create({a: 11, b: 22});
 // obj inherits properties a and b
 ```
 
 The syntax
-```
+```js
 Object.create(proto)
 Object.create(proto, propertiesObject)
 ```
@@ -86,14 +86,14 @@ Returns a new object with the specified prototype object and properties.
 ## Accessing properties
 
 Use the dot notation or bracket notation.
-```
+```js
 let obj = {};
 obj.hello = "world";
 obj['hello']; // world
 ```
 
 Accessing non existing properties
-```
+```js
 let obj = {};
 obj.prop; // undefined
 obj.prop.nested; // TypeError: undefined doesn't have 'nested'
@@ -104,7 +104,7 @@ The `delete` operator removes a property from an object.
 delete book.author;
 ```
 
-```
+```js
 let obj = { a: 11 };
 "a" in obj; // true
 "b" in obj; // false
@@ -124,7 +124,7 @@ Object.keys(), Object.getOwnPropertyNames(), Object.getOwnPropertySymbols(), Ref
 - Know methods inherited from Object.prototype: hasOwnProperty(), propertyIsEnumerable(), toString(), toLocaleString(), valueOf(), toJSON(). The Object.prototype does not actually define a toJSON() method, but the JSON.stringify() looks for a toJSON() method on any object it is asked to serialize. 
 
 To define a method for an object
-```
+```js
 let square = {
  area: function() { return this.side * this.side; },
  side: 10
@@ -139,7 +139,7 @@ let square = {
 
 Also, note that when you write a method using the shorthand syntax, the property name can take any of the forms that are legal in an object literal: you can also use string literals and computed property names, which can include Symbol property names.
 
-```
+```js
 let weird = {
  "method with spaces"(x) { return 1; }
  [str](x) { return x; }
@@ -152,7 +152,7 @@ weird["method with spaces"](1);
 
 There are two ways to define classes in JS. Constructor invocations using new automatically create the new object, so the constructor itself only needs to initialize the state of that new object. The critical feature of constructor invocations is that the prototype property of the constructor is used as the prototype of the new object. While almost all objects have a prototype, only a few objects have a prototype property. It is function objects that have a prototype property. This means that all objects created with the same constructor function inherit from the same object and are therefore members of the same class. 
 
-```
+```js
 function Range(from, to) {
  this.from = from;
  this.to = to;
@@ -167,7 +167,7 @@ r.includes(2);
 ```
 
 Using new.target and emulating the feature
-```
+```js
 function C() {
  if (!new.target) return new C();
 }
@@ -186,7 +186,7 @@ To test the prototype chain of an object for a specific prototype and do not wan
 
 Every regular JavaScript function automatically has a prototype property. The value of this property is an object that has a single, non-enumerable constructor property. The value of the constructor property is the function object:
 
-```
+```js
 let F = function() {}
 let p = F.prototype;
 let c = p.constructor;
@@ -196,13 +196,13 @@ console.log(c === F);
 
 This means that objects typically inherit a constructor property that refers to their constructor. Since constructors serve as the public identity of a class, this constructor property gives the class of an object.
 
-```
+```js
 let o = new F();
 o.constructor === F; // true
 ```
 
 A need to explicitly set the constructor:
-```
+```js
 Range.prototype = {
  constructor: Range
 }
@@ -215,7 +215,7 @@ Static methods are defined as properties of the constructor function rather than
 Remember that all of the shorthand method definition syntaxes allowed in object literals are also allowed in class bodies.
 Consider using the field declarations inside the class body. Also, note that the static keyword can be used with fields to make them class variables.
 
-```
+```js
 class Test {
  static #x = 12;
  nonstatic = "hello"
